@@ -15,8 +15,6 @@ public class ColorPicker : MonoBehaviour
     private NetColorSelect colorSelect;
     [SerializeField]
     private GameObject localPlayerPrefab;
-    [SerializeField]
-    private PlayersSystem psRef;
 
     private bool isColorPicked = false;
     public void SelectColor(int colorIndex)
@@ -33,24 +31,5 @@ public class ColorPicker : MonoBehaviour
         }
         //Debug.Log("NetColor true");
         isColorPicked = true;
-    }
-    public void SelectColorLocal(int colorIndex)
-    {
-        if (cs.IsNetworking)
-        {
-            return;
-        }
-        Debug.Log("Local");
-        Player player = Instantiate(localPlayerPrefab).GetComponent<Player>();
-        player.Init(psRef, (byte)colorIndex);
-        cs.ColorPicked();
-    }
-
-    private void Update()
-    {
-        if (cs.IsNetworking)
-        {
-            return;
-        }
     }
 }

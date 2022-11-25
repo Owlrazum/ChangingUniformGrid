@@ -10,7 +10,6 @@ public abstract class GridController : MonoBehaviour
     protected static int numOfRows;
     protected static int numOfColumns;
 
-    protected static Stack<Move> moves;
     protected static bool isTileSelected;
     protected static bool isTileGroupSelected;
 
@@ -37,7 +36,6 @@ public abstract class GridController : MonoBehaviour
     }
     private void Start()
     {
-        PlayerInput.Instance.OnSelectGroupButtonDown += HandleGroupSelection;
         EventSystem.Instance.OnTileCheckResult += GetTileCheckResult;
         ProcessStart();
     }
@@ -51,21 +49,6 @@ public abstract class GridController : MonoBehaviour
     protected virtual void ProcessStart()
     { 
     
-    }
-
-    private void OnDisable()
-    {
-        if (PlayerInput.Instance != null)
-        { 
-            PlayerInput.Instance.OnClick -= HandleClickEvent;
-        }
-    }
-    private void OnEnable()
-    {
-        if (PlayerInput.Instance != null)
-        {
-            PlayerInput.Instance.OnClick += HandleClickEvent;
-        }
     }
 
     protected const int layerMaskTiles = 1 << 8;
@@ -113,12 +96,10 @@ public abstract class GridController : MonoBehaviour
                 {
                     if (tileCheckResult == TileCheckResult.P1)
                     {
-                        EventSystem.Instance.TilePlaced(PlayersSystem.Side.White, clickedTile);
                         clickedTile.ItsState = Tile.State.PlacedFirst;
                     }
                     else
                     {
-                        EventSystem.Instance.TilePlaced(PlayersSystem.Side.Black, clickedTile);
                         clickedTile.ItsState = Tile.State.PlacedSecond;
                     }
                     ProcessTilePlacement(clickedTile);

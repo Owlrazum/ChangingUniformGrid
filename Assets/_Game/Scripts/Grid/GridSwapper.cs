@@ -40,7 +40,6 @@ public class GridSwapper : MonoBehaviour
     Vector3[] hexToSqr;
     private void Start()
     {
-        PlayerInput.Instance.OnChangeGrid += SwapGrids;
         EventSystem.Instance.OnTilesInitialized += Initialize;
         EventSystem.Instance.GridSwapperReady();
     }

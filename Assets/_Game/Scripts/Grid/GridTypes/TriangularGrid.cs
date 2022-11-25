@@ -144,8 +144,6 @@ public class TriangularGrid : GridController
             indexesOfPossibleMovesGroup[i].Add((-1, -1));
             // if list contains at least one element, then such group is possible, otherwise no addition to this list would be made
         }
-
-        moves = new Stack<Move>();
     }
   
     #region Handles
@@ -232,12 +230,10 @@ public class TriangularGrid : GridController
                     ProcessTilePlacement(clickedTile);
                     if (tileCheckResult == TileCheckResult.P1)
                     {
-                        EventSystem.Instance.TilePlaced(PlayersSystem.Side.White, clickedTile);
                         clickedTile.ItsState = Tile.State.PlacedFirst;
                     }
                     else
                     {
-                        EventSystem.Instance.TilePlaced(PlayersSystem.Side.Black, clickedTile);
                         clickedTile.ItsState = Tile.State.PlacedSecond;
                     }
                     Unselect();
@@ -287,7 +283,6 @@ public class TriangularGrid : GridController
             deletedTile.ItsState = Tile.State.Default;
             deletedTiles.Push(deletedTile);
            // ProcessTileDeletion(deletedTile);
-            RecordMove(Move.Type.Deletion);
             Unselect();
         }
         else if (isTileGroupSelected)
@@ -298,7 +293,6 @@ public class TriangularGrid : GridController
                 deletedTile.ItsState = Tile.State.Default;
                 deletedTiles.Push(deletedTile);
             }
-            RecordMove(Move.Type.Deletion);
         }
         else
         {
@@ -832,7 +826,6 @@ public class TriangularGrid : GridController
             //tiles[rowIndex][colIndex].ItsState = Tile.State.Placed;
             ProcessTilePlacement(tiles[rowIndex][colIndex]);
         }
-        RecordMove(Move.Type.GroupPlacement);
         if (isFinal || placedHighlightGroupCount >= 7)
         {
             for (int i = 0; i < 8; i++)
@@ -938,28 +931,4 @@ public class TriangularGrid : GridController
         placedList.RemoveAt(placedList.Count - 1);
         placedStack.Pop();
     }
-    private void RecordMove(Move.Type type)
-    {
-        Move move = new Move(type);
-        switch (type)
-        {
-            case Move.Type.TilePlacement:
-                move.Horizs = currentHorizs;
-                move.Verts = currentVerts;
-                move.TopLefts = currentTopLefts;
-                move.BotLefts = currentBotLefts;
-                //moves.Push(move);
-                move.AffectedTiles = currentAffectedTiles;
-                MoveSystem.Instance.MoveCompleted(move);
-                break;
-            case Move.Type.GroupPlacement:
-                goto case Move.Type.TilePlacement;
-            case Move.Type.Deletion:
-
-                break;
-        }
-        currentAffectedTiles.Clear();
-    }
-
 }
-

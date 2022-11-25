@@ -37,7 +37,6 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
         currentGb = defaultGb;
         ItsState = State.Default;
-        isMain = false;
     }
 
     public void UpdtateSqrHexGb ()
@@ -223,33 +222,6 @@ public class Tile : MonoBehaviour, IComparable<Tile>
         }
     }
     #endregion
-
-    public bool isMain;
-    public void MakeMain(PlayersSystem.Side side, Material[] mats)
-    {
-        isMain = true;
-        MeshRenderer[] renders;
-        if (side == PlayersSystem.Side.White)
-        { 
-            renders = placedGb_P1.GetComponentsInChildren<MeshRenderer>(true);
-            ItsState = State.PlacedFirst;
-        }
-        else 
-        {
-            renders = placedGb_P2.GetComponentsInChildren<MeshRenderer>(true);
-            ItsState = State.PlacedSecond;
-        }
-        EventSystem.Instance.TilePlaced(side, this);
-        for (int i = 0; i < 3; i++)
-        {
-            renders[i].material = mats[i];
-        }
-        renders[3].material = mats[2];
-        renders[4].material = mats[2];
-        renders[5].material = mats[2];
-        renders[6].material = mats[2];
-        renders[7].material = mats[2];
-    }
 
     public int HighlightGroup { get; set; }
 

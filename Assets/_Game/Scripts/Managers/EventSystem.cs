@@ -85,12 +85,6 @@ public class EventSystem : MonoBehaviour
         OnTileCheckResult?.Invoke(result);
     }
 
-    public event Action<PlayersSystem.Side, Tile> OnTilePlaced;
-    public void TilePlaced(PlayersSystem.Side side, Tile placedTile)
-    {
-        OnTilePlaced?.Invoke(side, placedTile);
-    }
-
     public event Action OnTileDeselected;
     public void TileDeselected()
     {
