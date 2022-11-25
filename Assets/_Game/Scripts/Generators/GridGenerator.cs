@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using MLAPI;
-using MLAPI.NetworkVariable.Collections;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour

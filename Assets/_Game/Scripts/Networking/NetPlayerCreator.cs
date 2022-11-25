@@ -1,10 +1,8 @@
-﻿using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.Logging;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI.NetworkVariable;
+
+using Unity.Netcode;
 
 public class NetPlayerCreator : NetworkBehaviour
 {

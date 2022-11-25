@@ -1,7 +1,4 @@
-﻿using MLAPI;
-using MLAPI.NetworkVariable;
-using MLAPI.Serialization;
-using System;
+﻿using System;
 using UnityEngine;
 
 public class NetTile : MonoBehaviour, IEquatable<NetTile>, IComparable<NetTile>

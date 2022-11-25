@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using MLAPI;
-using MLAPI.NetworkVariable.Collections;
 using UnityEngine;
 
 public class NetGrid : MonoBehaviour

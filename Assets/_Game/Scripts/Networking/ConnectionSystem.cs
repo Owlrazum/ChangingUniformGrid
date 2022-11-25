@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using MLAPI;
 using TMPro;
 using System.Text;
-using MLAPI.Spawning;
-using MLAPI.Connection;
-using MLAPI.Logging;
-using MLAPI.Messaging;
+
+using Unity.Netcode;
 
 public class ConnectionSystem : NetworkBehaviour
 {
@@ -105,13 +102,10 @@ public class ConnectionSystem : NetworkBehaviour
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            NetworkManager.Singleton.StopHost();
             NetworkManager.Singleton.ConnectionApprovalCallback -= ApprovalCheck;
         }
-        else if (NetworkManager.Singleton.IsClient)
-        {
-            NetworkManager.Singleton.StopClient();
-        }
+        
+        NetworkManager.Singleton.Shutdown();
 
         passwordEntryUI.SetActive(true);
         leaveButton.SetActive(false);
@@ -128,7 +122,7 @@ public class ConnectionSystem : NetworkBehaviour
         // Temporary workaround to treat host as client
         if (NetworkManager.Singleton.IsHost)
         {
-            HandleClientConnected(NetworkManager.Singleton.ServerClientId);
+            HandleClientConnected(NetworkManager.ServerClientId);
             startButton.SetActive(true);
         }
     }
@@ -157,11 +151,8 @@ public class ConnectionSystem : NetworkBehaviour
         }
     }
 
-    private void ApprovalCheck(byte[] connectionData, ulong clientId, MLAPI.NetworkManager.ConnectionApprovedDelegate callback)
+    private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
-        string password = Encoding.ASCII.GetString(connectionData);
-        bool approveConnection = password == passwordInputField.text;
-        callback(true, null, approveConnection, Vector3.zero, Quaternion.identity);
     }
     public void ColorPicked()
     {

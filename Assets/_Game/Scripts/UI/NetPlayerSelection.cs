@@ -1,25 +1,21 @@
-﻿using MLAPI.Messaging;
-using MLAPI.Logging;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI.NetworkVariable;
 using TMPro;
 using UnityEngine.UI;
-using MLAPI;
 using System;
+
+using Unity.Netcode;
 
 public class NetPlayerSelection : NetworkBehaviour
 {
-    NetworkVariableFloat alpha = new NetworkVariableFloat(0);
+    NetworkVariable<float> alpha = new NetworkVariable<float>(0);
     private Image image;
-    NetworkVariableString netText = new NetworkVariableString("");
     private TextMeshProUGUI textUI;
 
     private void Awake()
     {
         alpha.OnValueChanged += ProcessAlphaChange;
-        netText.OnValueChanged += ProcessTextChange;
         image = GetComponent<Image>();
         textUI = GetComponentInChildren<TextMeshProUGUI>();
 /*        if (NetworkManager.IsServer)
@@ -30,7 +26,6 @@ public class NetPlayerSelection : NetworkBehaviour
     private void OnDestroy()
     {
         alpha.OnValueChanged -= ProcessAlphaChange;
-        netText.OnValueChanged -= ProcessTextChange;
     }
 
     private void ProcessAlphaChange(float previousValue, float newValue)
@@ -51,7 +46,6 @@ public class NetPlayerSelection : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void SetTextServerRpc(string s)
     {
-        netText.Value = s;
     }
 
     public bool CheckAlpha()

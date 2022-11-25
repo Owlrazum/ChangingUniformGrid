@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Logging;
 using System;
-using MLAPI.Messaging;
+
+using Unity.Netcode;
 
 public class NetPs : NetworkBehaviour
 {

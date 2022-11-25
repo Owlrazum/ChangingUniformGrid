@@ -1,13 +1,10 @@
-﻿using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.Logging;
-using MLAPI.NetworkVariable;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using MLAPI.Spawning;
 using System;
+
+using Unity.Netcode;
 
 [RequireComponent(typeof(NetTile))]
 public class NetPlayer : MonoBehaviour, IEquatable<NetPlayer>, IComparable<NetPlayer>
